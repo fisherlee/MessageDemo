@@ -87,7 +87,14 @@ class ImagesViewController: UICollectionViewController {
     // MARK: UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            delegate?.imagesViewControllerDidSelectAdd(self)
+            //delegate?.imagesViewControllerDidSelectAdd(self)
+            
+            guard let controller = storyboard?.instantiateViewController(withIdentifier: BuilderViewController.storyboardId) as? BuilderViewController else {
+                fatalError("Unable to instantiate an ImagesViewController from the storyboard")
+            }
+            self.present(controller, animated: true, completion: { 
+                
+            })
         }
     }
 }
