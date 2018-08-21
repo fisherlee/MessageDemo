@@ -12,6 +12,10 @@ class BuilderViewController: UIViewController {
 
     static let storyboardId = "BuilderViewControllerID"
     
+    @IBOutlet weak var searchBar: UISearchBar?
+    
+    weak var delegate: BuilderViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,14 +31,20 @@ class BuilderViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    /*
-    // MARK: - Navigation
+    
+    // MARK: -
+    
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+
+extension BuilderViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        delegate?.builderViewSearchBarTextAction(self)
     }
-    */
+}
 
+protocol BuilderViewControllerDelegate: class {
+    
+    func builderViewSearchBarTextAction(_ controller: BuilderViewController)
 }

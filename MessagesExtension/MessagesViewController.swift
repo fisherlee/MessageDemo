@@ -84,7 +84,7 @@ class MessagesViewController: MSMessagesAppViewController {
             controller = instantiateImagesController()
         }
         else {
-            controller = instantiateMoreImagesController()
+            controller = instantiateBuilderController()
         }
         
         // Remove any existing child controllers.
@@ -127,6 +127,16 @@ class MessagesViewController: MSMessagesAppViewController {
         
         return controller
     }
+    
+    private func instantiateBuilderController() -> UIViewController {
+        guard let controller = storyboard?.instantiateViewController(withIdentifier: BuilderViewController.storyboardId) as? BuilderViewController else {
+            fatalError("Unable to instantiate an BuilderViewController from the storyboard")
+        }
+        
+        controller.delegate = self
+        
+        return controller
+    }
 }
 
 extension MessagesViewController: MoreImagesViewControllerDelegate {
@@ -138,5 +148,11 @@ extension MessagesViewController: MoreImagesViewControllerDelegate {
 extension MessagesViewController: ListViewControllerDelegate {
     func listViewControllerDidSelect(_ controller: ListViewController) {
         dismiss()
+    }
+}
+
+extension MessagesViewController:BuilderViewControllerDelegate {
+    func builderViewSearchBarTextAction(_ controller: BuilderViewController) {
+        requestPresentationStyle(.expanded)
     }
 }
